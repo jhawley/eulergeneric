@@ -23,3 +23,33 @@ func TestFilterSlice(t *testing.T) {
         t.Error("FilterSlice failed to apply filter correctly")
     }
 }
+
+func TestNumberSpiralDiagonals(t *testing.T) {
+    ds := NumberSpiralDiagonals(3)
+    if ds[8] != 25 {
+        t.Error("NumberSpiralDiagonals missed last number")
+    }
+    var sum int64 = 0
+    i := 0
+    for ; i < len(ds) ; i = i + 1 {
+        sum = sum + ds[i]
+    }
+    if sum != 101 {
+        t.Error("NumberSpiralDiagonals has the wrong elements")
+    }
+}
+
+func TestIsPandigital(t *testing.T) {
+    if IsPandigital(123456789) {
+        t.Error("IsPandigital incorrectly verified a simple pandigital")
+    }
+    if !IsPandigital(192) {
+        t.Error("IsPandigital failed to verify a complex pandigital")
+    }
+    if IsPandigital(123456788) {
+        t.Error("IsPandigital incorrectly verified a nonpandigital")
+    }
+    if IsPandigital(193) {
+        t.Error("IsPandigital incorrectly verified a complex nonpandigital")
+    }
+}
