@@ -1,6 +1,9 @@
 package misc
 
-import "testing"
+import (
+    "testing"
+    "math/big"
+)
 
 func TestGoldbacksOtherConjecture(t *testing.T) {
     primes := []int64{2, 3, 5, 7}
@@ -51,5 +54,39 @@ func TestIsPandigital(t *testing.T) {
     }
     if IsPandigital(193) {
         t.Error("IsPandigital incorrectly verified a complex nonpandigital")
+    }
+}
+
+func TestReverseBig(t *testing.T) {
+    n := big.NewInt(1234)
+    g := ReverseBigInt(n)
+    if g.String() != "4321" {
+        t.Error("ReverseBigInt failed to reverse big.Int")
+    }
+}
+
+func TestIsPalindrome(t *testing.T) {
+    n := big.NewInt(7337)
+    if !IsPalindrome(n) {
+        t.Error("IsPalindrome failed to detect palindrome")
+    }
+    m := big.NewInt(7333)
+    if IsPalindrome(m) {
+        t.Error("IsPalindrome failed to reject non-palindrome")
+    }
+}
+
+func TestIsLychrel(t *testing.T) {
+    n1 := big.NewInt(47)
+    n2 := big.NewInt(349)
+    n3 := big.NewInt(196)
+    if IsLychrel(n1, 0) {
+        t.Error("IsLychrel incorrectly identified a simple non-Lychrel")
+    }
+    if IsLychrel(n2, 0) {
+        t.Error("IsLychrel incorrectly identified a complex non-Lychrel")
+    }
+    if !IsLychrel(n3, 0) {
+        t.Error("IsLychrel incorrectly identified a Lychrel")
     }
 }

@@ -3,6 +3,7 @@ package misc
 import  (
     "strconv"
     "strings"
+    "math/big"
 )
 
 type GoldbachForm struct {
@@ -92,4 +93,38 @@ func checkPandigital(ns []int64) int {
         return -1
     }
     return -1
+}
+
+func reverse(s string) string {
+    runes := []rune(s)
+    for i, j := 0, len(runes)-1; i < j; i, j = i+1, j-1 {
+        runes[i], runes[j] = runes[j], runes[i]
+    }
+    return string(runes)
+}
+
+func ReverseBigInt(n *big.Int) *big.Int {
+    g := big.NewInt(0)
+    g.SetString(reverse(n.String()), 10)
+    return g
+}
+
+func IsPalindrome(n *big.Int) bool {
+    g := ReverseBigInt(n)
+    return g.String() == n.String()
+}
+
+func IsLychrel(n *big.Int, testsRun int) bool {
+    g := ReverseBigInt(n)
+    result := big.NewInt(0)
+    result.Add(g, n)
+    if IsPalindrome(result) {
+        return false
+    } else if testsRun == 48 {
+        return true
+    } else {
+        testsRun++
+        return IsLychrel(result, testsRun)
+    }
+    return false
 }
